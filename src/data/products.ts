@@ -9,6 +9,8 @@ export interface Product {
   precio: number; // COP
   foto?: string; // ruta en /public o URL; si falta se muestra un marcador
   disponible: boolean;
+  fecha?: string; // fecha de creación (AAAA-MM-DD), para ordenar
+  vendidos?: number; // unidades vendidas, para "Más vendidos"
 }
 
 export const COLLECTIONS: { name: Collection; tagline: string }[] = [
@@ -23,12 +25,12 @@ export const COLLECTIONS: { name: Collection; tagline: string }[] = [
  * (estructura lista para cargarse desde Google Sheets).
  */
 export const PRODUCTS: Product[] = [
-  { referencia: "EJ-001", nombre: "Vela de ejemplo 1", coleccion: "Serenidad", aroma: "Aroma de ejemplo", tamano: "200 g", precio: 40000, disponible: true },
-  { referencia: "EJ-002", nombre: "Vela de ejemplo 2", coleccion: "Serenidad", aroma: "Aroma de ejemplo", tamano: "120 g", precio: 28000, disponible: true },
-  { referencia: "EJ-003", nombre: "Vela de ejemplo 3", coleccion: "Energía", aroma: "Aroma de ejemplo", tamano: "200 g", precio: 40000, disponible: true },
-  { referencia: "EJ-004", nombre: "Vela de ejemplo 4", coleccion: "Energía", aroma: "Aroma de ejemplo", tamano: "120 g", precio: 28000, disponible: false },
-  { referencia: "EJ-005", nombre: "Vela de ejemplo 5", coleccion: "Etherea", aroma: "Aroma de ejemplo", tamano: "250 g", precio: 48000, disponible: true },
-  { referencia: "EJ-006", nombre: "Vela de ejemplo 6", coleccion: "Etherea", aroma: "Aroma de ejemplo", tamano: "120 g", precio: 28000, disponible: true },
+  { referencia: "EJ-001", nombre: "Vela Ámbar", coleccion: "Serenidad", aroma: "Aroma de ejemplo", tamano: "200 g", precio: 40000, foto: "/velas-test/Vela Ambar.webp", disponible: true, fecha: "2026-03-12", vendidos: 48 },
+  { referencia: "EJ-002", nombre: "Vela blanca con tapa de madera", coleccion: "Serenidad", aroma: "Aroma de ejemplo", tamano: "120 g", precio: 28000, foto: "/velas-test/Vela blanca con tapa de madera.webp", disponible: true, fecha: "2026-05-02", vendidos: 31 },
+  { referencia: "EJ-003", nombre: "Set Velas Cilíndricas x3", coleccion: "Energía", aroma: "Aroma de ejemplo", tamano: "3 × 100 g", precio: 40000, foto: "/velas-test/Set Velas Cilíndricas x3.webp", disponible: true, fecha: "2026-07-20", vendidos: 64 },
+  { referencia: "EJ-004", nombre: "Velas Flotantes Estrella x3", coleccion: "Energía", aroma: "Aroma de ejemplo", tamano: "3 uds", precio: 28000, foto: "/velas-test/Velas Flotantes Estrella x3.webp", disponible: false, fecha: "2026-09-08", vendidos: 12 },
+  { referencia: "EJ-005", nombre: "Caja de regalo para condolencias", coleccion: "Etherea", aroma: "Aroma de ejemplo", tamano: "250 g", precio: 48000, foto: "/velas-test/Caja de regalo para condolencias.webp", disponible: true, fecha: "2026-01-15", vendidos: 22 },
+  { referencia: "EJ-006", nombre: "Polvo de Luz – Cera Granulada", coleccion: "Etherea", aroma: "Aroma de ejemplo", tamano: "120 g", precio: 28000, foto: "/velas-test/Polvo de Luz – Cera Granulada para Velas.webp", disponible: true, fecha: "2026-10-01", vendidos: 40 },
 ];
 
 export async function getProducts(): Promise<Product[]> {

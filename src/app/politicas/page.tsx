@@ -7,7 +7,7 @@ export default function Politicas() {
     <section className="mx-auto max-w-3xl space-y-10 px-5 py-16">
       <h1 data-reveal className="font-serif text-6xl text-ink sm:text-7xl">Pagos y envíos</h1>
 
-      <div data-reveal className="bg-white p-8 shadow-[0_14px_40px_-18px_rgba(43,33,24,0.3)]">
+      <div data-reveal className="bg-white p-8 shadow-[var(--shadow-soft)]">
         <h2 className="font-serif text-3xl text-ink">Formas de pago</h2>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-ink/80">
           <li>Transferencia bancaria.</li>
@@ -15,7 +15,7 @@ export default function Politicas() {
         </ul>
       </div>
 
-      <div data-reveal className="bg-white p-8 shadow-[0_14px_40px_-18px_rgba(43,33,24,0.3)]">
+      <div data-reveal className="bg-white p-8 shadow-[var(--shadow-soft)]">
         <h2 className="font-serif text-3xl text-ink">Envíos</h2>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-ink/80">
           <li>Tiempo de procesamiento: 1 a 2 días.</li>

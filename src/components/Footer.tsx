@@ -4,7 +4,7 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="relative mt-28 bg-cocoa text-ivory/90 shadow-[0_-30px_60px_-30px_rgba(43,33,24,0.5)]">
+    <footer className="relative mt-28 bg-cocoa text-ivory/90 shadow-[0_-20px_40px_-30px_rgba(43,33,24,0.28)]">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-3">
         <div>
           <Logo className="h-10 w-auto brightness-125" />

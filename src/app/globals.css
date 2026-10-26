@@ -14,8 +14,8 @@
 
 :root {
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --shadow-soft: 0 14px 40px -18px rgba(43, 33, 24, 0.3);
-  --shadow-lift: 0 34px 70px -22px rgba(143, 111, 47, 0.55);
+  --shadow-soft: 0 10px 30px -18px rgba(43, 33, 24, 0.16);
+  --shadow-lift: 0 22px 44px -22px rgba(143, 111, 47, 0.3);
 }
 
 body {
@@ -87,25 +87,14 @@ html.motion [data-reveal]:not([data-revealed]) {
   font-weight: 500;
   letter-spacing: 0.04em;
   color: #fff;
-  background: linear-gradient(135deg, #d8b673, #a8823a);
-  box-shadow: 0 14px 30px -12px rgba(143, 111, 47, 0.65);
+  background: #b8923f;
+  box-shadow: 0 8px 20px -12px rgba(143, 111, 47, 0.35);
   transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
   will-change: transform;
 }
-.btn-gold::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
-  transform: translateX(-120%);
-}
 .btn-gold:hover:not(:disabled) {
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 22px 40px -14px rgba(143, 111, 47, 0.8);
-}
-.btn-gold:hover:not(:disabled)::before {
-  transform: translateX(120%);
-  transition: transform 0.9s var(--ease);
+  box-shadow: 0 14px 28px -14px rgba(143, 111, 47, 0.45);
 }
 .btn-gold:active:not(:disabled) {
   transform: translateY(0) scale(0.95);
@@ -129,12 +118,12 @@ html.motion [data-reveal]:not([data-revealed]) {
   padding: 0.5rem 1.1rem;
   color: var(--color-gold-dark);
   font-weight: 500;
-  box-shadow: 0 8px 22px -10px rgba(43, 33, 24, 0.35);
+  box-shadow: 0 6px 16px -10px rgba(43, 33, 24, 0.2);
   transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 .btn-ghost:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 28px -10px rgba(143, 111, 47, 0.55);
+  box-shadow: 0 10px 22px -10px rgba(143, 111, 47, 0.3);
 }
 .btn-ghost:active {
   transform: scale(0.94);
@@ -159,12 +148,12 @@ html.motion [data-reveal]:not([data-revealed]) {
   place-items: center;
   background: #fff;
   color: var(--color-gold-dark);
-  box-shadow: 0 6px 16px -8px rgba(43, 33, 24, 0.4);
+  box-shadow: 0 4px 12px -8px rgba(43, 33, 24, 0.22);
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 .icon-btn:hover {
   transform: scale(1.12);
-  box-shadow: 0 10px 20px -8px rgba(143, 111, 47, 0.6);
+  box-shadow: 0 8px 16px -8px rgba(143, 111, 47, 0.32);
 }
 .icon-btn:active {
   transform: scale(0.88);
@@ -177,7 +166,7 @@ html.motion [data-reveal]:not([data-revealed]) {
   font-size: 1rem;
   font-weight: 500;
   color: rgba(43, 33, 24, 0.85);
-  box-shadow: 0 8px 22px -12px rgba(43, 33, 24, 0.35);
+  box-shadow: 0 6px 16px -12px rgba(43, 33, 24, 0.2);
   transition: transform 0.4s var(--ease), background-color 0.4s var(--ease), color 0.4s var(--ease),
     box-shadow 0.4s var(--ease);
 }
@@ -191,7 +180,7 @@ html.motion [data-reveal]:not([data-revealed]) {
 .chip[aria-selected="true"] {
   background: var(--color-gold-dark);
   color: #fff;
-  box-shadow: 0 14px 26px -12px rgba(143, 111, 47, 0.8);
+  box-shadow: 0 10px 20px -12px rgba(143, 111, 47, 0.45);
 }
 
 /* Enlaces con subrayado animado */
@@ -242,6 +231,25 @@ html.motion [data-reveal]:not([data-revealed]) {
 .scroll-cue {
   transform-origin: top;
   animation: cue 2.4s var(--ease) infinite;
+}
+
+/* Panel de búsqueda: se despliega hacia abajo (clip-path + transform + opacity, sin reflujo) */
+.search-panel {
+  background: rgba(251, 247, 239, 0.96);
+  box-shadow: 0 14px 30px -18px rgba(43, 33, 24, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, -14px, 0);
+  clip-path: inset(0 0 100% 0);
+  transition: opacity 0.45s var(--ease), transform 0.6s var(--ease), clip-path 0.6s var(--ease),
+    visibility 0s linear 0.6s;
+}
+.search-panel[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  clip-path: inset(0 0 -40px 0);
+  transition-delay: 0s;
 }
 
 .overlay-in {
@@ -311,3 +319,49 @@ html.motion [data-reveal]:not([data-revealed]) {
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
+
+/* ---------- Barra de scroll (track claro, thumb dorado) ---------- */
+:root {
+  --scroll-track: #f3ead8;
+  --scroll-thumb: #b8923f;
+  --scroll-thumb-hover: #8f6f2f;
+}
+* {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+@supports selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border: 2px solid var(--scroll-track);
+    transition: background-color 0.3s;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-thumb-hover);
+  }
+  *::-webkit-scrollbar-corner {
+    background: var(--scroll-track);
+  }
+}
+
+/* ---------- Galería 3D: cuadrícula simple cuando no hay movimiento ---------- */
+.gallery3d-static {
+  display: none;
+}
+html:not(.motion) .gallery3d-static {
+  display: grid;
+}
+html:not(.motion) .gallery3d-stage {
+  display: none;
+}

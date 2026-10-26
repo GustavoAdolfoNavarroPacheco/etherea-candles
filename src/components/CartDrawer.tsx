@@ -27,8 +27,8 @@ export function CartDrawer() {
         onClick={() => setOpen(false)}
         aria-label="Cerrar carrito"
       />
-      <aside className="drawer-in absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-ivory shadow-[-30px_0_80px_-20px_rgba(0,0,0,0.45)]">
-        <div className="flex items-center justify-between px-6 py-5 shadow-[0_12px_30px_-20px_rgba(43,33,24,0.4)]">
+      <aside className="drawer-in absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-ivory shadow-[-20px_0_50px_-24px_rgba(0,0,0,0.28)]">
+        <div className="flex items-center justify-between px-6 py-5 shadow-[0_10px_24px_-20px_rgba(43,33,24,0.24)]">
           <h2 className="font-serif text-3xl text-ink">Tu carrito</h2>
           <button onClick={() => setOpen(false)} className="icon-btn" aria-label="Cerrar">×</button>
         </div>
@@ -39,7 +39,7 @@ export function CartDrawer() {
           ) : (
             <ul className="space-y-4">
               {lines.map(({ product: p, qty }) => (
-                <li key={p.referencia} className="line-in bg-white p-4 shadow-[0_8px_30px_-14px_rgba(43,33,24,0.25)]">
+                <li key={p.referencia} className="line-in bg-white p-4 shadow-[var(--shadow-soft)]">
                   <div className="flex justify-between gap-3">
                     <div>
                       <p className="font-serif text-xl text-ink">{p.nombre}</p>
@@ -59,7 +59,7 @@ export function CartDrawer() {
           )}
         </div>
 
-        <div className="space-y-3 bg-ivory px-6 py-5 shadow-[0_-16px_40px_-20px_rgba(43,33,24,0.4)]">
+        <div className="space-y-3 bg-ivory px-6 py-5 shadow-[0_-12px_30px_-20px_rgba(43,33,24,0.24)]">
           <div className="flex justify-between font-serif text-2xl text-ink">
             <span>Total</span>
             <span>{formatCOP(total)}</span>
