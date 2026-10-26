@@ -1,26 +1,27 @@
 import Link from "next/link";
 import { SITE } from "@/lib/config";
+import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-gold/30 bg-cocoa text-ivory/80">
-      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 sm:grid-cols-3">
+    <footer className="relative mt-28 bg-cocoa text-ivory/80 shadow-[0_-30px_60px_-30px_rgba(43,33,24,0.5)]">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-3">
         <div>
-          <p className="font-serif text-2xl tracking-[0.2em] uppercase text-gold-light">Etherea</p>
-          <p className="mt-2 text-sm">Handmade Candles</p>
+          <Logo className="h-10 w-auto brightness-125" />
         </div>
-        <div className="text-sm">
-          <p className="mb-2 text-gold-light">Navegar</p>
-          <ul className="space-y-1">
-            <li><Link href="/catalogo" className="hover:text-gold-light">Catálogo</Link></li>
-            <li><Link href="/politicas" className="hover:text-gold-light">Pagos y envíos</Link></li>
+        <div className="text-sm font-light">
+          <p className="mb-3 text-gold-light">Navegar</p>
+          <ul className="space-y-2">
+            <li><Link href="/inicio" className="navlink">Inicio</Link></li>
+            <li><Link href="/catalogo" className="navlink">Catálogo</Link></li>
+            <li><Link href="/politicas" className="navlink">Pagos y envíos</Link></li>
           </ul>
         </div>
-        <div className="text-sm">
-          <p className="mb-2 text-gold-light">Contacto</p>
+        <div className="text-sm font-light">
+          <p className="mb-3 text-gold-light">Contacto</p>
           <a
             href={`https://wa.me/${SITE.whatsapp}`}
-            className="hover:text-gold-light"
+            className="navlink"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -28,9 +29,7 @@ export function Footer() {
           </a>
         </div>
       </div>
-      <p className="border-t border-ivory/10 py-4 text-center text-xs text-ivory/50">
-        © Etherea Handmade Candles
-      </p>
+      <p className="py-5 text-center text-xs font-light text-ivory/40">© Etherea Handmade Candles</p>
     </footer>
   );
 }

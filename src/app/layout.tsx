@@ -5,14 +5,15 @@ import { CartProvider } from "@/lib/cart";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { SITE } from "@/lib/config";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600"],
 });
-const jost = Jost({ variable: "--font-jost", subsets: ["latin"] });
+const jost = Jost({ variable: "--font-jost", subsets: ["latin"], weight: ["300", "400", "500"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -23,13 +24,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="es" className={`${cormorant.variable} ${jost.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion')",
+          }}
+        />
+      </head>
       <body className="flex min-h-screen flex-col">
         <CartProvider>
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
           <CartDrawer />
+          <SmoothScroll />
         </CartProvider>
       </body>
     </html>
