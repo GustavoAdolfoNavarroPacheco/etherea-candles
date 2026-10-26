@@ -9,14 +9,16 @@ export function ProductCard({ product: p, reveal = true }: { product: Product; r
   const { add } = useCart();
   return (
     <article data-reveal={reveal || undefined} className="lift group flex flex-col overflow-hidden bg-white">
-      <div className="relative flex aspect-square items-center justify-center overflow-hidden bg-champagne/60">
+      <div data-frame className="relative flex aspect-square items-center justify-center overflow-hidden bg-champagne/60">
         <div className="glow-static absolute inset-0 m-auto h-2/3 w-2/3 bg-[radial-gradient(closest-side,rgba(236,217,163,0.45),transparent)]" />
-        {p.foto ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={encodeURI(p.foto)} alt={p.nombre} className="zoom h-full w-full object-cover" />
-        ) : (
-          <CandleMark className="zoom relative h-28 drop-shadow-[0_8px_14px_rgba(143,111,47,0.22)]" />
-        )}
+        <div data-pimg className="flex h-full w-full items-center justify-center">
+          {p.foto ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={encodeURI(p.foto)} alt={p.nombre} className="zoom h-full w-full object-cover" />
+          ) : (
+            <CandleMark className="zoom relative h-28 drop-shadow-[0_8px_14px_rgba(143,111,47,0.22)]" />
+          )}
+        </div>
         {!p.disponible && (
           <span className="absolute left-4 top-4 bg-ink/80 px-3 py-1 text-sm text-ivory">Agotada</span>
         )}

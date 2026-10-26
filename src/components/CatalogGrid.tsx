@@ -4,6 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { useRouter, useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { Flip } from "gsap/Flip";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { COLLECTIONS, type Collection, type Product } from "@/data/products";
 import { prefersReducedMotion, revealAll } from "@/lib/motion";
 import { Dropdown } from "./Dropdown";
@@ -121,6 +122,42 @@ export function CatalogGrid({ products }: { products: Product[] }) {
     revealAll();
   }, []);
 
+  // Parallax de las fotos con el scroll y revelado con máscara al entrar en pantalla.
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid || prefersReducedMotion()) return;
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>(":scope > div", grid).forEach((wrap) => {
+        const media = wrap.querySelector<HTMLElement>("[data-pimg]");
+        const frame = wrap.querySelector<HTMLElement>("[data-frame]");
+        if (!media || !frame) return;
+        gsap.set(media, { scale: 1.2 });
+        gsap.fromTo(
+          media,
+          { yPercent: -7 },
+          {
+            yPercent: 7,
+            ease: "none",
+            scrollTrigger: { trigger: wrap, start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true },
+          },
+        );
+        if (wrap.hasAttribute("data-reveal")) {
+          gsap.fromTo(
+            frame,
+            { clipPath: "inset(100% 0% 0% 0%)" },
+            {
+              clipPath: "inset(0% 0% 0% 0%)",
+              duration: 1.2,
+              ease: "power3.inOut",
+              scrollTrigger: { trigger: wrap, start: "top 90%", once: true },
+            },
+          );
+        }
+      });
+    }, grid);
+    return () => ctx.revert();
+  }, []);
+
   useLayoutEffect(() => {
     const state = before.current;
     before.current = null;
@@ -134,6 +171,8 @@ export function CatalogGrid({ products }: { products: Product[] }) {
       onEnter: (els) =>
         gsap.fromTo(els, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, delay: 0.2, ease: "power3.out" }),
       onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.9, duration: 0.4, ease: "power2.in" }),
+      // Las tarjetas cambian de posición: se recalculan los disparadores del parallax.
+      onComplete: () => ScrollTrigger.refresh(),
     });
   }, [shownKey]);
 
