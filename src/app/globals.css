@@ -22,7 +22,18 @@ body {
   background: var(--color-ivory);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-weight: 300;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Cormorant tiene trazo fino: peso medio y altura de línea compacta para legibilidad */
+.font-serif {
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
 }
 
 /* Los elementos [data-reveal] arrancan ocultos solo si hay JS y movimiento permitido */
@@ -71,10 +82,10 @@ html.motion [data-reveal]:not([data-revealed]) {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 9999px;
   padding: 0.85rem 2.2rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   color: #fff;
   background: linear-gradient(135deg, #d8b673, #a8823a);
   box-shadow: 0 14px 30px -12px rgba(143, 111, 47, 0.65);
@@ -106,18 +117,18 @@ html.motion [data-reveal]:not([data-revealed]) {
   box-shadow: none;
 }
 .btn-sm {
-  padding: 0.5rem 1.3rem;
-  font-size: 0.875rem;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
 }
 
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 9999px;
   background: #fff;
   padding: 0.5rem 1.1rem;
   color: var(--color-gold-dark);
+  font-weight: 500;
   box-shadow: 0 8px 22px -10px rgba(43, 33, 24, 0.35);
   transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
@@ -134,10 +145,10 @@ html.motion [data-reveal]:not([data-revealed]) {
   min-width: 1.5rem;
   height: 1.5rem;
   place-items: center;
-  border-radius: 9999px;
   background: var(--color-gold-dark);
   color: #fff;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
   animation: pop 0.5s var(--ease);
 }
 
@@ -146,7 +157,6 @@ html.motion [data-reveal]:not([data-revealed]) {
   height: 2rem;
   width: 2rem;
   place-items: center;
-  border-radius: 9999px;
   background: #fff;
   color: var(--color-gold-dark);
   box-shadow: 0 6px 16px -8px rgba(43, 33, 24, 0.4);
@@ -162,11 +172,11 @@ html.motion [data-reveal]:not([data-revealed]) {
 }
 
 .chip {
-  border-radius: 9999px;
   background: #fff;
   padding: 0.5rem 1.4rem;
-  font-size: 0.875rem;
-  color: rgba(43, 33, 24, 0.75);
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(43, 33, 24, 0.85);
   box-shadow: 0 8px 22px -12px rgba(43, 33, 24, 0.35);
   transition: transform 0.4s var(--ease), background-color 0.4s var(--ease), color 0.4s var(--ease),
     box-shadow 0.4s var(--ease);
@@ -274,6 +284,28 @@ html.motion [data-reveal]:not([data-revealed]) {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---------- Transición entre páginas (View Transitions API) ---------- */
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(site-header) {
+  animation: none;
+}
+.site-header {
+  view-transition-name: site-header;
+}
+::view-transition-old(.page) {
+  animation: page-out 0.35s cubic-bezier(0.55, 0, 1, 0.45) both;
+}
+::view-transition-new(.page) {
+  animation: page-in 0.7s var(--ease) 0.2s both;
+}
+@keyframes page-out {
+  to { opacity: 0; transform: translate3d(0, -28px, 0); filter: blur(6px); }
+}
+@keyframes page-in {
+  from { opacity: 0; transform: translate3d(0, 36px, 0); filter: blur(6px); }
 }
 
 html.lenis, html.lenis body { height: auto; }

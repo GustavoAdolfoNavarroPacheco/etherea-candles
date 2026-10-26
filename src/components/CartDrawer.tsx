@@ -29,29 +29,29 @@ export function CartDrawer() {
       />
       <aside className="drawer-in absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-ivory shadow-[-30px_0_80px_-20px_rgba(0,0,0,0.45)]">
         <div className="flex items-center justify-between px-6 py-5 shadow-[0_12px_30px_-20px_rgba(43,33,24,0.4)]">
-          <h2 className="font-serif text-3xl font-light text-ink">Tu carrito</h2>
+          <h2 className="font-serif text-3xl text-ink">Tu carrito</h2>
           <button onClick={() => setOpen(false)} className="icon-btn" aria-label="Cerrar">×</button>
         </div>
 
         <div data-lenis-prevent className="flex-1 overflow-y-auto px-6 py-5">
           {lines.length === 0 ? (
-            <p className="mt-10 text-center font-light text-ink/60">Aún no has agregado velas.</p>
+            <p className="mt-10 text-center text-ink/80">Aún no has agregado velas.</p>
           ) : (
             <ul className="space-y-4">
               {lines.map(({ product: p, qty }) => (
-                <li key={p.referencia} className="line-in rounded-2xl bg-white p-4 shadow-[0_8px_30px_-14px_rgba(43,33,24,0.25)]">
+                <li key={p.referencia} className="line-in bg-white p-4 shadow-[0_8px_30px_-14px_rgba(43,33,24,0.25)]">
                   <div className="flex justify-between gap-3">
                     <div>
                       <p className="font-serif text-xl text-ink">{p.nombre}</p>
-                      <p className="text-xs font-light text-ink/60">{p.coleccion} · {p.aroma} · {p.tamano}</p>
+                      <p className="text-sm text-ink/80">{p.coleccion} · {p.aroma} · {p.tamano}</p>
                     </div>
-                    <p className="whitespace-nowrap font-light text-ink">{formatCOP(p.precio * qty)}</p>
+                    <p className="whitespace-nowrap text-ink">{formatCOP(p.precio * qty)}</p>
                   </div>
-                  <div className="mt-3 flex items-center gap-3 text-sm">
+                  <div className="mt-3 flex items-center gap-3 text-base">
                     <button className="icon-btn" onClick={() => setQty(p.referencia, qty - 1)} aria-label="Quitar uno">−</button>
                     <span className="w-4 text-center">{qty}</span>
                     <button className="icon-btn" onClick={() => setQty(p.referencia, qty + 1)} aria-label="Agregar uno">+</button>
-                    <button className="navlink ml-auto text-xs text-ink/50" onClick={() => remove(p.referencia)}>Quitar</button>
+                    <button className="navlink ml-auto text-sm text-ink/80" onClick={() => remove(p.referencia)}>Quitar</button>
                   </div>
                 </li>
               ))}
@@ -60,11 +60,11 @@ export function CartDrawer() {
         </div>
 
         <div className="space-y-3 bg-ivory px-6 py-5 shadow-[0_-16px_40px_-20px_rgba(43,33,24,0.4)]">
-          <div className="flex justify-between font-serif text-2xl font-light text-ink">
+          <div className="flex justify-between font-serif text-2xl text-ink">
             <span>Total</span>
             <span>{formatCOP(total)}</span>
           </div>
-          <p className="text-xs font-light text-ink/60">
+          <p className="text-sm text-ink/80">
             El valor del envío se confirma por WhatsApp. Pago por transferencia o contra entrega.
           </p>
           <a
@@ -72,12 +72,12 @@ export function CartDrawer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-disabled={!lines.length}
-            className={`btn-gold w-full ${lines.length ? "" : "pointer-events-none opacity-40"}`}
+            className={`btn-gold w-full ${lines.length ?"" : "pointer-events-none opacity-40"}`}
           >
             Finalizar pedido por WhatsApp
           </a>
           {lines.length > 0 && (
-            <button onClick={clear} className="navlink mx-auto block text-xs text-ink/50">
+            <button onClick={clear} className="navlink mx-auto block text-sm text-ink/80">
               Vaciar carrito
             </button>
           )}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ViewTransition } from "react";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart";
@@ -11,9 +12,9 @@ import { SITE } from "@/lib/config";
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600"],
 });
-const jost = Jost({ variable: "--font-jost", subsets: ["latin"], weight: ["300", "400", "500"] });
+const jost = Jost({ variable: "--font-jost", subsets: ["latin"], weight: ["400", "500"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -36,7 +37,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-screen flex-col">
         <CartProvider>
           <Header />
-          <main className="flex-1">{children}</main>
+          <ViewTransition default="page">
+            <main className="flex-1">{children}</main>
+          </ViewTransition>
           <Footer />
           <CartDrawer />
           <SmoothScroll />

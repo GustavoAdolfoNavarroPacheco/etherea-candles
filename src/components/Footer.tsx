@@ -4,12 +4,12 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="relative mt-28 bg-cocoa text-ivory/80 shadow-[0_-30px_60px_-30px_rgba(43,33,24,0.5)]">
+    <footer className="relative mt-28 bg-cocoa text-ivory/90 shadow-[0_-30px_60px_-30px_rgba(43,33,24,0.5)]">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-3">
         <div>
           <Logo className="h-10 w-auto brightness-125" />
         </div>
-        <div className="text-sm font-light">
+        <div className="text-base">
           <p className="mb-3 text-gold-light">Navegar</p>
           <ul className="space-y-2">
             <li><Link href="/inicio" className="navlink">Inicio</Link></li>
@@ -17,7 +17,7 @@ export function Footer() {
             <li><Link href="/politicas" className="navlink">Pagos y envíos</Link></li>
           </ul>
         </div>
-        <div className="text-sm font-light">
+        <div className="text-base">
           <p className="mb-3 text-gold-light">Contacto</p>
           <a
             href={`https://wa.me/${SITE.whatsapp}`}
@@ -29,7 +29,7 @@ export function Footer() {
           </a>
         </div>
       </div>
-      <p className="py-5 text-center text-xs font-light text-ivory/40">© Etherea Handmade Candles</p>
+      <p className="py-5 text-center text-sm text-ivory/70">© Etherea Handmade Candles</p>
     </footer>
   );
 }
