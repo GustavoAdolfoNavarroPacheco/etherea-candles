@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useIconHover } from "@animateicons/react";
 import { SearchIcon, ShoppingCartIcon } from "@animateicons/react/lucide";
 import { useCart } from "@/lib/cart";
+import { getLenis } from "@/lib/motion";
 
 const LINKS = [
   { href: "/inicio", label: "Inicio" },
@@ -33,6 +34,30 @@ export function Header() {
     const qs = params.toString();
     window.dispatchEvent(new Event("catalog:before-change"));
     router.replace(`/catalogo${qs ? `?${qs}` : ""}`, { scroll: false });
+  };
+
+  // Los enlaces del encabezado suben primero con el scroll suave y recién después cambian de página:
+  // así la transición empieza siempre desde arriba y no hay un salto brusco desde el final de la página.
+  // Si ya se está en esa ruta, solo sube (Next saltaría sin pasar por Lenis ni por la galería fijada).
+  const navigateSmooth = (e: React.MouseEvent, href: string) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    const lenis = getLenis();
+    const sameRoute = href === pathname;
+    const y = window.scrollY;
+    if (!sameRoute && y < 160) return;
+    e.preventDefault();
+    const duration = Math.min(1.4, 0.6 + y / 6000);
+    if (sameRoute) {
+      if (lenis) lenis.scrollTo(0, { duration: 1.8 });
+      else window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    if (!lenis) {
+      router.push(href);
+      return;
+    }
+    router.prefetch(href);
+    lenis.scrollTo(0, { duration, onComplete: () => router.push(href) });
   };
 
   const toggleSearch = () => {
@@ -64,7 +89,7 @@ export function Header() {
   return (
     <header className="site-header sticky top-0 z-30 bg-ivory/85 shadow-[0_8px_28px_-18px_rgba(43,33,24,0.22)] backdrop-blur-md">
       <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-3 sm:px-5">
-        <Link href="/inicio" aria-label="Etherea, inicio" className="press shrink-0 justify-self-start">
+        <Link href="/inicio" aria-label="Etherea, inicio" onClick={(e) => navigateSmooth(e, "/inicio")} className="press shrink-0 justify-self-start">
           <span aria-hidden="true" className="block aspect-[959/199] h-6 bg-gold-dark [mask-image:url(/logo.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] sm:h-10" />
         </Link>
         <nav className="flex items-center gap-3 text-base font-medium tracking-wide sm:gap-12 sm:text-lg">
@@ -72,6 +97,7 @@ export function Header() {
             <Link
               key={l.href}
               href={l.href}
+              onClick={(e) => navigateSmooth(e, l.href)}
               data-active={pathname === l.href}
               className="navlink text-ink/85 data-[active=true]:text-gold-dark"
             >

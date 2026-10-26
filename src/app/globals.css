@@ -304,16 +304,16 @@ html.motion [data-reveal]:not([data-revealed]) {
   view-transition-name: site-header;
 }
 ::view-transition-old(.page) {
-  animation: page-out 0.35s cubic-bezier(0.55, 0, 1, 0.45) both;
+  animation: page-out 0.5s cubic-bezier(0.4, 0, 0.6, 1) both;
 }
 ::view-transition-new(.page) {
-  animation: page-in 0.7s var(--ease) 0.2s both;
+  animation: page-in 1s var(--ease) 0.25s both;
 }
 @keyframes page-out {
-  to { opacity: 0; transform: translate3d(0, -28px, 0); filter: blur(6px); }
+  to { opacity: 0; transform: translate3d(0, -16px, 0); filter: blur(4px); }
 }
 @keyframes page-in {
-  from { opacity: 0; transform: translate3d(0, 36px, 0); filter: blur(6px); }
+  from { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(4px); }
 }
 
 html.lenis, html.lenis body { height: auto; }
